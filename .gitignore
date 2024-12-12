@@ -34,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+app/favicon.ico
+
+# Sentry Config File
+.env.sentry-build-plugin
