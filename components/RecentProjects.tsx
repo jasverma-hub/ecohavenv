@@ -6,7 +6,7 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 
 const RecentProjects = () => {
   return (
-    <section className="py-20 px-4 md:px-20">
+    <section className="py-20">
       <div className="flex items-center justify-center">
         <button className="p-[3px] relative">
           <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
@@ -30,7 +30,7 @@ const RecentProjects = () => {
         <h3 className="font-bold lg:text-2xl md:text-xl text-base line-clamp-1">
             Cybersecurity Solutions with <span className="text-purple">NEUROSECDATA</span>
           </h3>
-          <p className="text-lg text-gray-100 leading-relaxed">
+          <p className="mt-4 lg:text-xl lg:font-normal font-light text-sm line">
             EcoHaven Ventures has partnered with NEUROSECDATA to deliver cutting-edge cybersecurity solutions tailored to the specific needs of organizations. Our collaboration ensures comprehensive protection, enabling clients to operate securely in today’s complex digital landscape.
           </p>
       </div>
