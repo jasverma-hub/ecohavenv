@@ -96,6 +96,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 ├── utils/          # Utility functions
 ├── .env            # Environment variables
 └── README.md       # Project documentation
+```
 
 ## <a name="folder-structure">📂 Folder Structure</a>
 
