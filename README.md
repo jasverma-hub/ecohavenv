@@ -1,6 +1,6 @@
 <div align="center">
   <br />
-      <img src="/banner.png" alt="Project Banner">
+      <img src="https://github.com/jasverma-hub/ecohavenv/blob/main/public/banner.png" alt="Project Banner">
   <br />
 
   <div>
