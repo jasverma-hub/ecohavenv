@@ -38,6 +38,8 @@ Built with Next.js for handling the user interface, Three.js for rendering 3D el
 
 👉 **Hero**: Eye-catching hero section with a spotlight effect and dynamic background transitions, creating a strong first impression.
 
+👉 **Floating Navbar**: A responsive and interactive floating navigation bar that appears dynamically based on user scroll behavior, enhancing accessibility and user engagement.
+
 👉 **Canvas Reveal Effect**: A cutting-edge interactive experience where dots expand on hover, inspired by Clerk's website, providing a sleek and modern touch.
 
 👉 **Apple-Style Cards Carousel & 3D Elements**: A minimalistic and elegant carousel implementation inspired by Apple’s website, offering an intuitive and engaging way to explore services. Interactive 3D design elements, such as a GitHub-style globe and card hover effects, add depth and engagement.

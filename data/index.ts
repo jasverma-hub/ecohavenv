@@ -80,7 +80,7 @@ export const navItems = [
     {
       id: 1,
       name: "USNetwork",
-      img: "/usnlogo1.png",
+      img: "/usnlogo3.png",
     },
   ];
   
