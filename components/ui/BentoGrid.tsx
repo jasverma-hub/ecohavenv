@@ -1,13 +1,14 @@
-'use client'
+'use client';
 
 import { cn } from "@/utils/cn";
 import { BackgroundGradientAnimation } from "./GradientBg";
 import { GlobeDemo } from "./GridGlobe";
 import { useState } from "react";
-import animationData from '@/data/confetti.json'
+import animationData from '@/data/confetti.json';
 import Lottie from "react-lottie";
 import { IoCopyOutline } from "react-icons/io5";
 import MagicButton from "../MagicButton";
+import Image from 'next/image'; // Importing Next.js Image component
 
 export const BentoGrid = ({
   className,
@@ -50,9 +51,9 @@ export const BentoGridItem = ({
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText('info@ecohavenv.com')
+    navigator.clipboard.writeText('info@ecohavenv.com');
     setCopied(true);
-  }
+  };
 
   return (
     <div
@@ -68,16 +69,17 @@ export const BentoGridItem = ({
       <div className={`${id === 3 && 'flex justify-center'} h-full`}>
         <div className="w-full h-full absolute">
           {img && (
-            <img
+            <Image
               src={img}
-              alt={img}
+              alt="Bento Grid Item"
+              layout="fill" // Ensures image covers its container
+              objectFit="cover" // Makes the image cover the container area
               className={cn(imgClassName, 'object-cover object-center')}
             />
           )}
         </div>
         {id === 3 && (
-          <BackgroundGradientAnimation>
-          </BackgroundGradientAnimation>
+          <BackgroundGradientAnimation />
         )}
         <div className={cn(
           titleClassName,

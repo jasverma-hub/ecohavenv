@@ -27,7 +27,7 @@ const Clients = () => {
           array of clients across multiple industries, helping them achieve
           their sustainability and cybersecurity goals.{" "}
           <span className="text-purple">
-            Our collaborative approach ensures that each client's unique needs
+            Our collaborative approach ensures that each client&apos;s unique needs
             are met with customized solutions.
           </span>
         </h2>

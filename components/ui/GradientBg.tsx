@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/utils/cn";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 export const BackgroundGradientAnimation = ({
   gradientBackgroundStart = "rgb(108, 0, 162)",
@@ -39,7 +39,8 @@ export const BackgroundGradientAnimation = ({
   const [curY, setCurY] = useState(0);
   const [tgX, setTgX] = useState(0);
   const [tgY, setTgY] = useState(0);
-  useEffect(() => {
+
+  const updateGradientProperties = useCallback(() => {
     document.body.style.setProperty(
       "--gradient-background-start",
       gradientBackgroundStart
@@ -56,22 +57,37 @@ export const BackgroundGradientAnimation = ({
     document.body.style.setProperty("--pointer-color", pointerColor);
     document.body.style.setProperty("--size", size);
     document.body.style.setProperty("--blending-value", blendingValue);
-  }, []);
+  }, [
+    gradientBackgroundStart,
+    gradientBackgroundEnd,
+    firstColor,
+    secondColor,
+    thirdColor,
+    fourthColor,
+    fifthColor,
+    pointerColor,
+    size,
+    blendingValue,
+  ]);
 
   useEffect(() => {
-    function move() {
-      if (!interactiveRef.current) {
-        return;
-      }
-      setCurX(curX + (tgX - curX) / 20);
-      setCurY(curY + (tgY - curY) / 20);
-      interactiveRef.current.style.transform = `translate(${Math.round(
+    updateGradientProperties();
+  }, [updateGradientProperties]);
+
+  useEffect(() => {
+    if (!interactiveRef.current) return;
+
+    const move = () => {
+      setCurX((prev) => prev + (tgX - prev) / 20);
+      setCurY((prev) => prev + (tgY - prev) / 20);
+      interactiveRef.current!.style.transform = `translate(${Math.round(
         curX
       )}px, ${Math.round(curY)}px)`;
-    }
+    };
 
-    move();
-  }, [tgX, tgY]);
+    const id = requestAnimationFrame(move);
+    return () => cancelAnimationFrame(id);
+  }, [tgX, tgY, curX, curY]);
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     if (interactiveRef.current) {
@@ -82,6 +98,7 @@ export const BackgroundGradientAnimation = ({
   };
 
   const [isSafari, setIsSafari] = useState(false);
+
   useEffect(() => {
     setIsSafari(/^((?!chrome|android).)*safari/i.test(navigator.userAgent));
   }, []);

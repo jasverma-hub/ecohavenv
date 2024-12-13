@@ -1,6 +1,6 @@
 "use client";
-import React from "react";
-import Image from 'next/image';
+import React, { useCallback } from "react";
+import Image from "next/image";
 import { Carousel, Card } from "@/components/ui/apple-cards-carousel";
 
 export function AppleCardsCarouselDemo() {
@@ -8,30 +8,53 @@ export function AppleCardsCarouselDemo() {
     <Card key={card.src} card={card} index={index} />
   ));
 
+  const handleClose = useCallback(() => {
+    console.log("Carousel closed");
+  }, []); // Use useCallback to memoize the function
+
+  React.useEffect(() => {
+    // Any logic related to handleClose
+    return () => handleClose();
+  }, [handleClose]); // Include handleClose in the dependency array
+
   return (
-    <section className='py-20'> 
-    <div className="flex items-center justify-center">
-      <button className="p-[3px] relative">
+    <section className="py-20">
+      <div className="flex items-center justify-center">
+        <button className="p-[3px] relative">
           <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg" />
-          <div className="px-8 py-2  bg-black rounded-[6px]  relative group transition duration-200 text-white hover:bg-transparent">
-          <h1 className='heading' id='services'>
-                Services we{' '}
-                <span className='text-purple'>provide</span>
-              </h1>
+          <div className="px-8 py-2 bg-black rounded-[6px] relative group transition duration-200 text-white hover:bg-transparent">
+            <h1 className="heading" id="services">
+              Services we <span className="text-purple">provide</span>
+            </h1>
           </div>
         </button>
-        </div>
-      <div className="w-full h-full my-10"> 
+      </div>
+      <div className="w-full h-full my-10">
         <h2 className="text-center md:tracking-wider text-sm md:text-m lg:text-xl">
-          EcoHaven Ventures operates across a diverse range of verticals, offering tailored strategies to meet the unique needs of each sector. Through collaborative partnerships and innovative approaches, <span className="text-purple">EcoHaven Ventures empowers clients to embrace sustainability and security as core principles, driving positive impact and lasting change.</span>
+          EcoHaven Ventures operates across a diverse range of verticals,
+          offering tailored strategies to meet the unique needs of each sector.
+          Through collaborative partnerships and innovative approaches,{" "}
+          <span className="text-purple">
+            EcoHaven Ventures empowers clients to embrace sustainability and
+            security as core principles, driving positive impact and lasting
+            change.
+          </span>
         </h2>
         <Carousel items={cards} />
       </div>
     </section>
   );
-};  
+}
 
-const DummyContent = ({ description, details, imageSrc }: { description: string; details: string; imageSrc: string }) => {
+const DummyContent = ({
+  description,
+  details,
+  imageSrc,
+}: {
+  description: string;
+  details: string;
+  imageSrc: string;
+}) => {
   return (
     <div className="bg-[#F5F5F7] dark:bg-neutral-800 p-8 md:p-14 rounded-3xl mb-4">
       <p className="text-neutral-600 dark:text-neutral-400 text-base md:text-2xl font-sans max-w-3xl mx-auto">
@@ -43,8 +66,8 @@ const DummyContent = ({ description, details, imageSrc }: { description: string;
       <Image
         src={imageSrc}
         alt="Content Image"
-        height="500"
-        width="500"
+        height={500}
+        width={500}
         className="md:w-1/2 md:h-1/2 h-full w-full rounded-lg shadow-md mx-auto object-contain transition-transform duration-300 hover:scale-105 hover:shadow-lg mt-6"
       />
     </div>
@@ -54,7 +77,8 @@ const DummyContent = ({ description, details, imageSrc }: { description: string;
 const data = [
   {
     category: "Customized Cybersecurity Solutions:",
-    title: " Implementing tailored security measures for sensitive data protection across banks, insurance, retail, healthcare, and government sectors.",
+    title:
+      " Implementing tailored security measures for sensitive data protection across banks, insurance, retail, healthcare, and government sectors.",
     src: "/cybersecurity.jpg",
     content: (
       <DummyContent
@@ -66,7 +90,8 @@ const data = [
   },
   {
     category: "Urban Planning:",
-    title: "Design cities that prioritize green spaces, reduce carbon footprints, and enhance residents' quality of life through sustainable solutions.",
+    title:
+      "Design cities that prioritize green spaces, reduce carbon footprints, and enhance residents' quality of life through sustainable solutions.",
     src: "/urban.jpg",
     content: (
       <DummyContent
@@ -78,7 +103,8 @@ const data = [
   },
   {
     category: "Climate Change Mitigation:",
-    title: "Develop strategies to cut greenhouse gas emissions and enhance resilience against climate impacts for a sustainable future.",
+    title:
+      "Develop strategies to cut greenhouse gas emissions and enhance resilience against climate impacts for a sustainable future.",
     src: "/climate.jpg",
     content: (
       <DummyContent
@@ -90,7 +116,8 @@ const data = [
   },
   {
     category: "Eco-Tourism Development:",
-    title: "Create sustainable tourism models that benefit local communities and safeguard natural habitats, promoting environmental and cultural preservation.",
+    title:
+      "Create sustainable tourism models that benefit local communities and safeguard natural habitats, promoting environmental and cultural preservation.",
     src: "/ecot.jpg",
     content: (
       <DummyContent
@@ -102,7 +129,8 @@ const data = [
   },
   {
     category: "Rural Empowerment:",
-    title: "Support rural communities by adopting sustainable agricultural practices and developing eco-friendly enterprises to boost local economies.",
+    title:
+      "Support rural communities by adopting sustainable agricultural practices and developing eco-friendly enterprises to boost local economies.",
     src: "/man.jpg",
     content: (
       <DummyContent
@@ -114,7 +142,8 @@ const data = [
   },
   {
     category: "Artisanal Craftsmanship:",
-    title: "Promote traditional crafts using sustainable materials and ethical production methods to preserve heritage and support artisans.",
+    title:
+      "Promote traditional crafts using sustainable materials and ethical production methods to preserve heritage and support artisans.",
     src: "/pottery.jpg",
     content: (
       <DummyContent

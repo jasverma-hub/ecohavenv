@@ -1,21 +1,24 @@
-"use client"
+"use client";
 
-import React, { useState } from 'react'
+import React, { useState } from 'react';
 import { FaLocationArrow } from "react-icons/fa6";
 import { motion } from 'framer-motion';
 import { socialMedia } from "@/data";
 import MagicButton from "./MagicButton";
+import Image from 'next/image';
 
 const Footer = () => {
-  const [isHovered, setIsHovered] = useState(false)
+  const [isHovered, setIsHovered] = useState(false);
   return (
     <footer className="w-full pt-20 pb-10" id="contact">
       {/* background grid */}
       <div className="w-full absolute left-0 -bottom-72 min-h-96">
-        <img
+        <Image
           src="/footer-grid.svg"
           alt="grid"
-          className="w-full h-full opacity-50 "
+          layout="fill"
+          objectFit="cover"
+          className=" opacity-50"
         />
       </div>
 
@@ -29,19 +32,19 @@ const Footer = () => {
           achieve your goals.
         </p>
         <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-        <a href="mailto:info@ecohavenv.com">
-          <MagicButton
-            title="Let's get in touch"
-            icon={<FaLocationArrow className={`transition-transform duration-300 ${isHovered ? 'rotate-45' : ''}`} />}
-            position="right"
-          />
-        </a>
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          <a href="mailto:info@ecohavenv.com">
+            <MagicButton
+              title="Let&apos;s get in touch"
+              icon={<FaLocationArrow className={`transition-transform duration-300 ${isHovered ? 'rotate-45' : ''}`} />}
+              position="right"
+            />
+          </a>
         </motion.div>
       </div>
       <div className="flex mt-16 md:flex-row flex-col justify-between items-center">
@@ -56,15 +59,20 @@ const Footer = () => {
               onClick={() => window.open(info.url, "_blank")} // Open the link in a new tab
               className="w-10 h-10 cursor-pointer flex justify-center items-center backdrop-filter backdrop-blur-lg saturate-180 bg-opacity-75 bg-black-200 rounded-lg border border-black-300"
             >
-              <motion.img 
-              src={info.img} 
-              alt="icons" 
-              width={20} height={20}
-              animate={{ opacity: 1, x: 0 }}
-              whileHover={{ scale: 1.25 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ duration: 0.3 }}
-              />
+              <motion.div 
+                className="relative w-5 h-5" 
+                animate={{ opacity: 1, x: 0 }}
+                whileHover={{ scale: 1.25 }}
+                whileTap={{ scale: 0.95 }}
+                transition={{ duration: 0.3 }}
+              >
+                <Image 
+                  src={info.img} 
+                  alt="icons" 
+                  layout="fill"
+                  objectFit="contain"
+                />
+              </motion.div>
             </div>
           ))}
         </div>
