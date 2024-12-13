@@ -86,7 +86,7 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000) in your browser to view the project.
 
 ## <a name="project-structure">🛠️ Project Structure</a>
-
+```plaintext
 .
 ├── public/         # Static assets like images
 ├── components/     # Reusable React components
@@ -99,11 +99,12 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 
 ## <a name="folder-structure">📂 Folder Structure</a>
 
-public/: Contains all the static files such as images, icons, and other assets.
-components/: Holds all reusable UI components.
-pages/: Includes all Next.js pages.
-styles/: Contains global styles and TailwindCSS configuration.
-utils/: Stores utility functions and helpers.
+- **`public/`**: Contains all the static files such as images, icons, and other assets.
+- **`components/`**: Holds all reusable UI components.
+- **`pages/`**: Includes all Next.js pages.
+- **`styles/`**: Contains global styles and TailwindCSS configuration.
+- **`utils/`**: Stores utility functions and helpers.
+
 
 ## <a name="links-and-resources">🔗 Links and Resources</a>
 
