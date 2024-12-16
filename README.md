@@ -111,6 +111,6 @@ Open [http://localhost:3000](http://localhost:3000) in your browser to view the 
 
 ## <a name="links-and-resources">🔗 Links and Resources</a>
 
-- **Live Demo**: [EcoHaven Portfolio](https://your-live-demo-link.com)
+- **Live Demo**: [EcoHaven Portfolio](https://ecohavenv.vercel.app/)
 - **Documentation**: [Next.js Documentation](https://nextjs.org/docs)
 - **Contact**: [jazverma101@gmail.com](mailto:jazverma101@gmail.com)
