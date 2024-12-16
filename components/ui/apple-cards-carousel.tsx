@@ -5,6 +5,7 @@ import React, {
   useState,
   createContext,
   useContext,
+  useCallback,
 } from "react";
 import {
   IconArrowNarrowLeft,
@@ -162,6 +163,12 @@ export const Card = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const { onCardClose } = useContext(CarouselContext);
 
+  // Memoize handleClose to avoid creating a new function every render
+  const handleClose = useCallback(() => {
+    setOpen(false);
+    onCardClose(index);
+  }, [index, onCardClose]);
+
   // Handle escape keypress to close modal
   useEffect(() => {
     if (typeof window === "undefined") return; // Ensure window exists
@@ -182,18 +189,13 @@ export const Card = ({
     return () => {
       window.removeEventListener("keydown", onKeyDown);
     };
-  }, [open]);
+  }, [open, handleClose]); // Include handleClose in the dependency array
 
   // Use the hook to detect clicks outside the modal
-  useOutsideClick(containerRef, () => handleClose());
+  useOutsideClick(containerRef, handleClose);
 
   const handleOpen = () => {
     setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-    onCardClose(index);
   };
 
   return (
