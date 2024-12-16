@@ -72,8 +72,7 @@ export const BentoGridItem = ({
             <Image
               src={img}
               alt="Bento Grid Item"
-              layout="fill" // Ensures image covers its container
-              objectFit="cover" // Makes the image cover the container area
+              fill
               className={cn(imgClassName, 'object-cover object-center')}
             />
           )}
@@ -91,7 +90,7 @@ export const BentoGridItem = ({
           <div className={`font-sans text-lg lg:text-3xl max-w-96 font-bold z-10`}>
             {title}
           </div>
-          {id === 2 && <GlobeDemo />}
+          {/* {id === 2 && <GlobeDemo />} */}
           {id === 3 && (
             <div className="mt-5 relative">
               <div className="absolute -bottom-5 right-0">

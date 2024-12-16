@@ -16,7 +16,7 @@ export default function Home() {
         <Hero />
         <Approach />
         <AppleCardsCarouselDemo />
-        <Grid />
+        {/* <Grid /> */}
         <RecentProjects />
         <Clients />
         <Footer />
