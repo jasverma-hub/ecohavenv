@@ -80,7 +80,7 @@ const sectorData = [
     id: 1,
     title: "Financial Institutions",
     description:
-      "Our cybersecurity solutions safeguard banking systems, ensuring confidentiality, integrity, and availability of financial information.",
+      "Our solutions secure banking systems, ensuring confidentiality, integrity, and data availability.",
     icon: FaLock,
   },
   {

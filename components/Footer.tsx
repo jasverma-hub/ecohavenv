@@ -16,12 +16,11 @@ const Footer = () => {
         <Image
           src="/footer-grid.svg"
           alt="grid"
-          layout="fill"
-          objectFit="cover"
-          className=" opacity-50"
+          fill
+          style={{ objectFit: "cover" }} // Replace objectFit prop with style
+          className="opacity-50"
         />
       </div>
-
       <div className="flex flex-col items-center">
         <h1 className="heading lg:max-w-[45vw]">
           Ready to take <span className="text-purple">your</span> digital
@@ -69,8 +68,8 @@ const Footer = () => {
                 <Image 
                   src={info.img} 
                   alt="icons" 
-                  layout="fill"
-                  objectFit="contain"
+                  fill
+                  style={{ objectFit: "cover" }} // Replace objectFit prop with style
                 />
               </motion.div>
             </div>

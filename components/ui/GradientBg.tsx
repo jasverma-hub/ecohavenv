@@ -2,22 +2,7 @@
 import { cn } from "@/utils/cn";
 import { useEffect, useRef, useState, useCallback } from "react";
 
-export const BackgroundGradientAnimation = ({
-  gradientBackgroundStart = "rgb(108, 0, 162)",
-  gradientBackgroundEnd = "rgb(0, 17, 82)",
-  firstColor = "18, 113, 255",
-  secondColor = "221, 74, 255",
-  thirdColor = "100, 220, 255",
-  fourthColor = "200, 50, 50",
-  fifthColor = "180, 180, 50",
-  pointerColor = "140, 100, 255",
-  size = "80%",
-  blendingValue = "hard-light",
-  children,
-  className,
-  interactive = true,
-  containerClassName,
-}: {
+export const BackgroundGradientAnimation = (props: {
   gradientBackgroundStart?: string;
   gradientBackgroundEnd?: string;
   firstColor?: string;
@@ -33,22 +18,37 @@ export const BackgroundGradientAnimation = ({
   interactive?: boolean;
   containerClassName?: string;
 }) => {
+  const {
+    gradientBackgroundStart = "rgb(108, 0, 162)",
+    gradientBackgroundEnd = "rgb(0, 17, 82)",
+    firstColor = "18, 113, 255",
+    secondColor = "221, 74, 255",
+    thirdColor = "100, 220, 255",
+    fourthColor = "200, 50, 50",
+    fifthColor = "180, 180, 50",
+    pointerColor = "140, 100, 255",
+    size = "80%",
+    blendingValue = "hard-light",
+    children,
+    className,
+    interactive = true,
+    containerClassName,
+  } = props;
+
   const interactiveRef = useRef<HTMLDivElement>(null);
+  const [isClient, setIsClient] = useState(false);
 
-  const [curX, setCurX] = useState(0);
-  const [curY, setCurY] = useState(0);
-  const [tgX, setTgX] = useState(0);
-  const [tgY, setTgY] = useState(0);
+  // Set `isClient` to true when the component is mounted on the client
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
-  const updateGradientProperties = useCallback(() => {
-    document.body.style.setProperty(
-      "--gradient-background-start",
-      gradientBackgroundStart
-    );
-    document.body.style.setProperty(
-      "--gradient-background-end",
-      gradientBackgroundEnd
-    );
+  // Move `document` logic inside a client-only block
+  useEffect(() => {
+    if (!isClient) return;
+
+    document.body.style.setProperty("--gradient-background-start", gradientBackgroundStart);
+    document.body.style.setProperty("--gradient-background-end", gradientBackgroundEnd);
     document.body.style.setProperty("--first-color", firstColor);
     document.body.style.setProperty("--second-color", secondColor);
     document.body.style.setProperty("--third-color", thirdColor);
@@ -58,6 +58,7 @@ export const BackgroundGradientAnimation = ({
     document.body.style.setProperty("--size", size);
     document.body.style.setProperty("--blending-value", blendingValue);
   }, [
+    isClient,
     gradientBackgroundStart,
     gradientBackgroundEnd,
     firstColor,
@@ -70,9 +71,11 @@ export const BackgroundGradientAnimation = ({
     blendingValue,
   ]);
 
-  useEffect(() => {
-    updateGradientProperties();
-  }, [updateGradientProperties]);
+  // Handle mouse movement
+  const [curX, setCurX] = useState(0);
+  const [curY, setCurY] = useState(0);
+  const [tgX, setTgX] = useState(0);
+  const [tgY, setTgY] = useState(0);
 
   useEffect(() => {
     if (!interactiveRef.current) return;
@@ -80,9 +83,9 @@ export const BackgroundGradientAnimation = ({
     const move = () => {
       setCurX((prev) => prev + (tgX - prev) / 20);
       setCurY((prev) => prev + (tgY - prev) / 20);
-      interactiveRef.current!.style.transform = `translate(${Math.round(
-        curX
-      )}px, ${Math.round(curY)}px)`;
+      if (interactiveRef.current) {
+        interactiveRef.current.style.transform = `translate(${Math.round(curX)}px, ${Math.round(curY)}px)`;
+      }
     };
 
     const id = requestAnimationFrame(move);
@@ -100,8 +103,12 @@ export const BackgroundGradientAnimation = ({
   const [isSafari, setIsSafari] = useState(false);
 
   useEffect(() => {
-    setIsSafari(/^((?!chrome|android).)*safari/i.test(navigator.userAgent));
-  }, []);
+    if (isClient) {
+      setIsSafari(/^((?!chrome|android).)*safari/i.test(navigator.userAgent));
+    }
+  }, [isClient]);
+
+  if (!isClient) return null; // Don't render anything on the server
 
   return (
     <div
@@ -113,11 +120,7 @@ export const BackgroundGradientAnimation = ({
       <svg className="hidden">
         <defs>
           <filter id="blurMe">
-            <feGaussianBlur
-              in="SourceGraphic"
-              stdDeviation="10"
-              result="blur"
-            />
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
             <feColorMatrix
               in="blur"
               mode="matrix"
