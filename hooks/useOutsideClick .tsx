@@ -5,8 +5,11 @@ export const useOutsideClick = (
   callback: Function
 ) => {
   useEffect(() => {
-    const listener = (event: any) => {
-      if (!ref.current || ref.current.contains(event.target)) {
+    // Ensure `document` is available
+    if (typeof window === "undefined") return;
+
+    const listener = (event: MouseEvent | TouchEvent) => {
+      if (!ref.current || ref.current.contains(event.target as Node)) {
         return;
       }
       callback(event);

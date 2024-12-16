@@ -1,6 +1,7 @@
 "use client";
+
 import { cn } from "@/utils/cn";
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const BackgroundGradientAnimation = (props: {
   gradientBackgroundStart?: string;
@@ -38,25 +39,26 @@ export const BackgroundGradientAnimation = (props: {
   const interactiveRef = useRef<HTMLDivElement>(null);
   const [isClient, setIsClient] = useState(false);
 
-  // Set `isClient` to true when the component is mounted on the client
+  // Set `isClient` to true after mounting to prevent SSR issues
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  // Move `document` logic inside a client-only block
+  // Apply gradient styles to the document body (client-side only)
   useEffect(() => {
     if (!isClient) return;
 
-    document.body.style.setProperty("--gradient-background-start", gradientBackgroundStart);
-    document.body.style.setProperty("--gradient-background-end", gradientBackgroundEnd);
-    document.body.style.setProperty("--first-color", firstColor);
-    document.body.style.setProperty("--second-color", secondColor);
-    document.body.style.setProperty("--third-color", thirdColor);
-    document.body.style.setProperty("--fourth-color", fourthColor);
-    document.body.style.setProperty("--fifth-color", fifthColor);
-    document.body.style.setProperty("--pointer-color", pointerColor);
-    document.body.style.setProperty("--size", size);
-    document.body.style.setProperty("--blending-value", blendingValue);
+    const rootStyles = document.documentElement.style;
+    rootStyles.setProperty("--gradient-background-start", gradientBackgroundStart);
+    rootStyles.setProperty("--gradient-background-end", gradientBackgroundEnd);
+    rootStyles.setProperty("--first-color", firstColor);
+    rootStyles.setProperty("--second-color", secondColor);
+    rootStyles.setProperty("--third-color", thirdColor);
+    rootStyles.setProperty("--fourth-color", fourthColor);
+    rootStyles.setProperty("--fifth-color", fifthColor);
+    rootStyles.setProperty("--pointer-color", pointerColor);
+    rootStyles.setProperty("--size", size);
+    rootStyles.setProperty("--blending-value", blendingValue);
   }, [
     isClient,
     gradientBackgroundStart,
@@ -71,7 +73,7 @@ export const BackgroundGradientAnimation = (props: {
     blendingValue,
   ]);
 
-  // Handle mouse movement
+  // Handle mouse movement (client-side only)
   const [curX, setCurX] = useState(0);
   const [curY, setCurY] = useState(0);
   const [tgX, setTgX] = useState(0);
@@ -108,7 +110,7 @@ export const BackgroundGradientAnimation = (props: {
     }
   }, [isClient]);
 
-  if (!isClient) return null; // Don't render anything on the server
+  if (!isClient) return null; // Do not render on the server
 
   return (
     <div

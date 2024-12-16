@@ -71,8 +71,8 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
 
   const handleCardClose = (index: number) => {
     if (carouselRef.current) {
-      const cardWidth = isMobile() ? 230 : 384; // (md:w-96)
-      const gap = isMobile() ? 4 : 8;
+      const cardWidth = typeof window !== "undefined" && window.innerWidth < 768 ? 230 : 384;
+      const gap = typeof window !== "undefined" && window.innerWidth < 768 ? 4 : 8;
       const scrollPosition = (cardWidth + gap) * (index + 1);
       carouselRef.current.scrollTo({
         left: scrollPosition,
@@ -80,10 +80,6 @@ export const Carousel = ({ items, initialScroll = 0 }: CarouselProps) => {
       });
       setCurrentIndex(index);
     }
-  };
-
-  const isMobile = () => {
-    return window && window.innerWidth < 768;
   };
 
   return (
@@ -164,25 +160,31 @@ export const Card = ({
 }) => {
   const [open, setOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const { onCardClose, currentIndex } = useContext(CarouselContext);
+  const { onCardClose } = useContext(CarouselContext);
 
+  // Handle escape keypress to close modal
   useEffect(() => {
-    function onKeyDown(event: KeyboardEvent) {
+    if (typeof window === "undefined") return; // Ensure window exists
+
+    const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         handleClose();
       }
-    }
+    };
 
     if (open) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = "hidden"; // Prevent background scroll
+      window.addEventListener("keydown", onKeyDown);
     } else {
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = "auto"; // Restore scroll
     }
 
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+    };
   }, [open]);
 
+  // Use the hook to detect clicks outside the modal
   useOutsideClick(containerRef, () => handleClose());
 
   const handleOpen = () => {
